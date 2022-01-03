@@ -16,12 +16,12 @@ gemList = ["bundler","ruboocop"]
 [projectSteps]
 
 [projectSteps.installRbenv]
-run = "install rbenv"
+install = "rbenv"
 
 [projectSteps.initRbenv]
 run = "rbenv init"
 
-[createPluginsDirectory]
+[projectSteps.createPluginsDirectory]
 run = "mkdir -p \"$(rbenv root)\"/plugins"
 
 [projectSteps.installRubyBuild]
@@ -29,24 +29,20 @@ run = "git clone https://github.com/rbenv/ruby-build.git \"$(rbenv root)\"/plugi
 
 [projectSteps.runRbenvDoctor]
 run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"
-    [projectSteps.runRbenvDoctor.validate]
-        run = ""
-        #validateToken = ""
+validate = "ok"
 
 [projectSteps.installRubyVersion]
 run = "rbenv install ${rubyVersion}"
 
 [projectSteps.setRbenvGlobal]
 run = "rbenv global ${rubyVersion}"
-    [projectSteps.setRbenvGlobal.reHash]
-        run = "rbenv hash"
+
+[projectSteps.reHash]
+run = "rbenv hash"
 
 [projectSteps.validateGemHome]
 run = "gem env home"
-    [projectSteps.validateGemHome.validate]
-        run = ""
-        #validateToken = ""
+validate = "/gem/home"
 
-#[projectSteps.installGems]
-#    [installGems.loop]
-#        run = "gem install ${gemList}"
+[projectSteps.installGems]
+run = "gem install ${gemList}"
