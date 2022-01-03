@@ -24,6 +24,9 @@ def validateSystem(*, tomlSystem)
   systemOS = getSystem
   if tomlSystem.includes?(systemOS)
    puts "Validating System...#{"Success".colorize(:green)}"
+  else
+    puts "Validating System...#{"Fail".colorize(:red)}"
+    exit
   end
 end
 
