@@ -6,6 +6,8 @@ author = "Amit Budhu"
 description = "Install Latest Ruby"
 
 [projectSettings]
+# Maybe we can just add
+#packageManager = "apt"
 system = ["Linux","Mac"]
 elevatePermission = true
 

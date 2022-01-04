@@ -27,7 +27,7 @@ module Idat
       end
 
       bf.substituteVariables
-      #bf.executeSolution
+      bf.executeSolution
 
     end
   end
