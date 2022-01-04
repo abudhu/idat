@@ -34,6 +34,8 @@ module Idat
     end
 
     private def run_steps
+      #projectInformation = @toml_file.select({"projectInfo","projectSettings","projectVariables"})
+
       projectSteps = @toml_file.reject("projectInfo","projectSettings","projectVariables")
 
       projectSteps.each do | k, v |
