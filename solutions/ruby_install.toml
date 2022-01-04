@@ -5,9 +5,9 @@ name = "Install Ruby"
 author = "Amit Budhu"
 description = "Install Latest Ruby"
 
-[projectSettings]
-system = ["Linux","Mac"]
-elevatePermission = true
+#[projectSettings]
+#system = ["Linux","Mac"]
+#elevatePermission = true
 
 [projectVariables]
 rubyVersion = "3.0.0"

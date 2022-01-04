@@ -1,5 +1,6 @@
 require "toml"
 require "colorize"
+require "./validator"
 
 module Idat
   class Runner
@@ -21,8 +22,11 @@ module Idat
     end
 
     def execute
-      validate_solution
-      run_steps
+      validator = Validator.new()
+      validator.validateToml(@toml_file)
+      #validator.validateSystem
+
+      #run_steps
     end
 
     private def validate_solution
@@ -34,11 +38,7 @@ module Idat
     end
 
     private def run_steps
-      #projectInformation = @toml_file.select({"projectInfo","projectSettings","projectVariables"})
-
-      projectSteps = @toml_file.reject("projectInfo","projectSettings","projectVariables")
-
-      projectSteps.each do | k, v |
+      @projectSteps.each do | k, v |
         puts "Executing Step: #{k.colorize.fore(:yellow).mode(:bold)}"
         v.as(Hash).each do | k2, v2 |
           dispatch(k2,v2)      

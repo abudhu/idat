@@ -1,3 +1,8 @@
+# So you need to use something like Admiral or Athena Console
+# because you want to do this like idat validate [file]
+# and idat run [file]
+
+
 require "option_parser"
 require "./runner.cr"
 
