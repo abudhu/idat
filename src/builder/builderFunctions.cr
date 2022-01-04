@@ -25,7 +25,20 @@ module Idat
       end
     end
 
-    # You need to do any subsitutions of variables, thus creating a proper hash
+    # So this thing is neat...
+    # We open the Project Steps, which look like {key => value} ex: {run => my thing}, where this is a tuple under the header [step]
+    # So for each [Step] (key) the Value is {run => my thing}
+    # So we step inside {run => thing}
+    # Now Run is Key and Thing is Value
+    # then we split the entire Value up on the spaces
+    # So now its a big array of segemented words
+    # So we scan each element in the array for ${}
+    # Next we strip off all the ${} 
+    # then we look at our Project Variables, and find one that matches and get its value
+    # Then we stick that value in the position it was discovered in the array
+    # then we rejoin the entire array
+    # Then we go look at the original Key Pairs: [YourStep]{run = > something}  And since that is Key : Value, we say
+    # select YourStepas the Hash, then select the key (run) the replace it with the correct line. 
     def substituteVariables
       @@projectSteps.each do | k, v |
         v.as(Hash).each do | k2, v2 |
