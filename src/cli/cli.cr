@@ -7,7 +7,7 @@ module Idat
 
     register_sub_command validate, Idat::Validator
 
-    #register_sub_command build, Idat::Builder
+    register_sub_command build, Idat::Builder
   
     def run
       puts help
