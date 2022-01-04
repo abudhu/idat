@@ -13,36 +13,34 @@ elevatePermission = true
 rubyVersion = "3.0.0"
 gemList = ["bundler","ruboocop"]
 
-[projectSteps]
-
-[projectSteps.installRbenv]
+[installRbenv]
 install = "rbenv"
 
-[projectSteps.initRbenv]
+[initRbenv]
 run = "rbenv init"
 
-[projectSteps.createPluginsDirectory]
+[createPluginsDirectory]
 run = "mkdir -p \"$(rbenv root)\"/plugins"
 
-[projectSteps.installRubyBuild]
+[installRubyBuild]
 run = "git clone https://github.com/rbenv/ruby-build.git \"$(rbenv root)\"/plugins/ruby-build"
 
-[projectSteps.runRbenvDoctor]
+[runRbenvDoctor]
 run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"
 validate = "ok"
 
-[projectSteps.installRubyVersion]
+[installRubyVersion]
 run = "rbenv install ${rubyVersion}"
 
-[projectSteps.setRbenvGlobal]
+[setRbenvGlobal]
 run = "rbenv global ${rubyVersion}"
 
-[projectSteps.reHash]
+[reHash]
 run = "rbenv hash"
 
-[projectSteps.validateGemHome]
+[validateGemHome]
 run = "gem env home"
 validate = "/gem/home"
 
-[projectSteps.installGems]
+[installGems]
 run = "gem install ${gemList}"

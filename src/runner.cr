@@ -34,7 +34,7 @@ module Idat
     end
 
     private def run_steps
-      projectSteps = @toml_file["projectSteps"].as(Hash)
+      projectSteps = @toml_file.reject("projectInfo","projectSettings","projectVariables")
 
       projectSteps.each do | k, v |
         puts "Executing Step: #{k.colorize.fore(:yellow).mode(:bold)}"
