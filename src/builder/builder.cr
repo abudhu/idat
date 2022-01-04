@@ -1,9 +1,8 @@
 require "toml"
-require "colorize"
-require "./validator"
+require "./*"
 
 module Idat
-  class Runner
+  class Builder
     
 		def initialize(toml_file : String)
 			@toml_file = TOML.parse(File.read(toml_file))

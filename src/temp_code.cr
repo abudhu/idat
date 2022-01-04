@@ -91,3 +91,27 @@ def collapse_hash(sub_hash)
   def handle_validate(params)
     puts "Validating... #{params.colorize(:magenta)}"
   end 
+
+
+#require "option_parser"
+#require "./runner.cr"
+
+#module Idat
+#  VERSION = "0.1.0"
+
+#  OptionParser.parse do | parser |
+#    parser.banner = "I Did A Thing - A Simple Automation Tool"
+
+#    parser.on "-f FILE", "--file=FILE", "TOML Automation File" do | file | 
+#      runner = Runner.new(file)
+#      runner.execute()
+#    end
+
+#    parser.on "-h", "--help", "Show Help" do
+#      puts parser
+#    end
+
+#  end
+
+#end
+
