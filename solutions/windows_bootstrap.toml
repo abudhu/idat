@@ -1,0 +1,20 @@
+# Setup
+
+[projectInfo]
+name = "Bootstrap Windows 11"
+author = "Amit Budhu"
+description = "Installs required applications on Windows 11"
+
+[projectSettings]
+system = ["Windows"]
+elevatePermission = true
+
+[projectVariables]
+chocList = ["firefox","google-drive-file-stream","webtorrent-desktop","steam-client","geforce-experience","mpv","7zip"]
+
+[installChocolatey]
+run = "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+
+[installSoftware]
+run = "choco install ${chocList}"
+
