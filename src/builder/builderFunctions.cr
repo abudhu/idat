@@ -76,11 +76,11 @@ module Idat
     end
 
     private def handle_run(params)
-      puts "Running... #{params.colorize(:cyan)}"
+      runFunc = RunFunctions.new(params)
     end 
     
     private def handle_install(params)
-      puts "Installing... #{params.colorize(:green)}"
+      instlFunc = InstallFunctions.new(params)
     end 
     
     private def handle_validate(params)
