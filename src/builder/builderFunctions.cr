@@ -84,7 +84,7 @@ module Idat
     end 
     
     private def handle_validate(params)
-      puts "Validating... #{params.colorize(:magenta)}"
+      valdFunc = ValidateFunctions.new(params)
     end 
 
   end
