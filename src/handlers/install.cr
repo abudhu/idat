@@ -16,6 +16,7 @@ module Idat
     end
 
     def installApp()
+      # Change to use common ProcessFunction
       puts "Installing... #{@params.colorize(:green)}"
       puts @sysInstaller
       #Process.run(@sysInstaller, args=@params, shell: true)

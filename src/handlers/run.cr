@@ -10,6 +10,7 @@ module Idat
     end
 
     def execProcess
+      #Change to use common ProcessFunction
       puts "Running... #{@params.colorize(:cyan)}"
 
       io = IO::Memory.new
