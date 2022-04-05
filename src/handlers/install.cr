@@ -1,4 +1,5 @@
 require "toml"
+require "./common.cr"
 
 module Idat
   class InstallFunctions
@@ -19,6 +20,8 @@ module Idat
       # Change to use common ProcessFunction
       puts "Installing... #{@params.colorize(:green)}"
       puts @sysInstaller
+      cf = CommonFunctions.new()
+      cf.processRun("#{@sysInstaller} #{@params} -y")
       #Process.run(@sysInstaller, args=@params, shell: true)
     end
 
@@ -31,7 +34,7 @@ module Idat
 
       case linuxDistro
       when "debian"
-        @sysInstaller = "apt"
+        @sysInstaller = "sudo apt-get install"
       else
         @sysInstaller = "unknown"
       end

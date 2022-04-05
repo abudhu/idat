@@ -5,16 +5,12 @@ module Idat
     def initialize()
 
     end
-    def processRun(cmd, args)
+    def processRun(cmd)
       io = IO::Memory.new
       procError = IO::Memory.new
 
-      if args.nil?
-        runCmd = Process.run(cmd, shell: true, output: io, error: procError)
-      else
-        runCmd = Process.run(cmd, args, shell: true, output: io, error: procError)
-      end
-        
+      runCmd = Process.run(cmd, shell: true, output: io, error: procError)       
+      
       if procError.to_s.empty?
         puts io.to_s.colorize(:blue)
       else

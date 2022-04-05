@@ -13,7 +13,7 @@ module Idat
     def execProcess
 
       cf = CommonFunctions.new()
-      cf.processRun(@params, args: nil)
+      cf.processRun(@params)
 
     end
   end
