@@ -1,4 +1,5 @@
 require "toml"
+require "./common.cr"
 
 module Idat
   class RunFunctions
@@ -10,21 +11,10 @@ module Idat
     end
 
     def execProcess
-      #Change to use common ProcessFunction
-      puts "Running... #{@params.colorize(:cyan)}"
 
-      io = IO::Memory.new
-      procError = IO::Memory.new
+      cf = CommonFunctions.new()
+      cf.processRun(@params, args: nil)
 
-      runCmd = Process.run(@params, shell: true, output: io, error: procError)
-      if procError.to_s.empty?
-        puts io.to_s.colorize(:blue)
-      else
-        puts procError.to_s.colorize(:red)
-        Process.exit
-      end
-      io.close
-      procError.close
     end
   end
 end
