@@ -3,26 +3,45 @@ require "./common.cr"
 
 module Idat
   class InstallFunctions
-    def initialize(params)
-
+    @params : Array(TOML::Type) | String
+    def initialize(params, projectVariables)
+      @projectVariables = Hash(String, TOML::Type).new
       # This needs to figure out if you use Apt, Powershell, Choco, 
       # Then needs to figure out if you gave it an array
       # Or if its a single app
       # Or if the single link got subsituted and contains and array
-      #puts params.is_a?(Array)
-      #puts params.is_a?(String)
-      @params = params.as(String)
+      
+      if params.is_a?(Array)
+        @params = params.as(Array)
+      else
+        @params = params.as(String)
+      end
+      @projectVariables = projectVariables
       @sysInstaller = getLinuxDistro()
-      installApp()
     end
 
     def installApp()
-      # Change to use common ProcessFunction
-      puts "Installing... #{@params.colorize(:green)}"
-      puts @sysInstaller
       cf = CommonFunctions.new()
-      cf.processRun("#{@sysInstaller} #{@params} -y")
-      #Process.run(@sysInstaller, args=@params, shell: true)
+      
+      if @params.is_a?(Array)
+        @params.as(Array).each do | app |
+          puts "Installing... #{app.colorize(:green)}"
+          cf.processRun("#{@sysInstaller} #{app} -y")
+        end
+      else
+        newCmd = cf.substituteVariables(@params.as(String), @projectVariables)
+        if newCmd.is_a?(Array)
+          newCmd.each do | cmd |
+            puts "Installing... #{cmd.colorize(:green)}"
+            cf.processRun("#{@sysInstaller} #{cmd} -y")
+          end
+        else
+          puts "Installing... #{newCmd.colorize(:green)}"
+          cf.processRun("#{@sysInstaller} #{newCmd} -y")
+        end
+      end
+      
+
     end
 
     private def getLinuxDistro()
@@ -30,7 +49,7 @@ module Idat
       Process.run("grep '^ID_LIKE' /etc/os-release", shell: true, output: io)
       linuxDistro = io.to_s.lchop("ID_LIKE=").chomp
       
-      puts linuxDistro
+      #puts linuxDistro
 
       case linuxDistro
       when "debian"

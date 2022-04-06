@@ -15,16 +15,17 @@ elevatePermission = true
 simpleSub = "Amit"
 sub2 = "Budhu"
 installList = ["ruby", "crystal"]
+install2 = "crystal"
 
 
-[listItemsAgain]
-run = "ls"
+#[listItemsAgain]
+#run = "ls"
 
-[simple]
-run = "echo ${simpleSub} ${sub2}"
+#[simple]
+#run = "echo ${simpleSub} ${sub2}"
 
-[echoNames]
-run = "echo ${installList}"
+#[echoNames]
+#run = "echo ${installList}"
 
 #[breaksProbably]
 #run = "echo ${installList} ${sub2}"
@@ -39,5 +40,14 @@ run = "echo ${installList}"
 #run = "echo )"
 
 
-#[installItem]
-#install = "${installList}"
+[installArrayList]
+install = ["ruby","crystal"]
+
+[installArraySubList]
+install = "${installList}"
+
+[installDirectSingle]
+install = "ruby"
+
+[installSubSingle]
+install = "${install2}"
