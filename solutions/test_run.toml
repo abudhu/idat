@@ -17,14 +17,14 @@ sub2 = "Budhu"
 installList = ["ruby", "crystal"]
 
 
-[listItemsAgain]
-run = "ls"
+#[listItemsAgain]
+#run = "ls"
 
-[simple]
-run = "echo ${simpleSub} ${sub2}"
+#[simple]
+#run = "echo ${simpleSub} ${sub2}"
 
-[echoNames]
-run = "echo ${installList}"
+#[echoNames]
+#run = "echo ${installList}"
 
 #[breaksProbably]
 #run = "echo ${installList} ${sub2}"
@@ -39,5 +39,5 @@ run = "echo ${installList}"
 #run = "echo )"
 
 
-#[installItem]
-#install = "${installList}"
+[installItem]
+install = "${installList}"
