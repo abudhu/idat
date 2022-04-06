@@ -36,8 +36,8 @@ module Idat
             cf.processRun("#{@sysInstaller} #{cmd} -y")
           end
         else
-          puts "Installing... #{@params.colorize(:green)}"
-          cf.processRun("#{@sysInstaller} #{@params} -y")
+          puts "Installing... #{newCmd.colorize(:green)}"
+          cf.processRun("#{@sysInstaller} #{newCmd} -y")
         end
       end
       
