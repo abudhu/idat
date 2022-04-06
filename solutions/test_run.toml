@@ -40,4 +40,10 @@ installList = ["ruby", "crystal"]
 
 
 [installItem]
+install = ["ruby","crystal"]
+
+[installSub]
 install = "${installList}"
+
+[simpInstall]
+install = "ruby"
