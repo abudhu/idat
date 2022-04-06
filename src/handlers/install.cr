@@ -4,18 +4,16 @@ require "./common.cr"
 module Idat
   class InstallFunctions
     def initialize(params, projectVariables)
-
+      @projectVariables = Hash(String, TOML::Type).new
       # This needs to figure out if you use Apt, Powershell, Choco, 
       # Then needs to figure out if you gave it an array
       # Or if its a single app
       # Or if the single link got subsituted and contains and array
       #puts params.is_a?(Array)
       #puts params.is_a?(String)
-      puts "Am I here??"
       @params = params.as(String)
       @projectVariables = projectVariables
       @sysInstaller = getLinuxDistro()
-      installApp()
     end
 
     def installApp()
@@ -23,25 +21,15 @@ module Idat
       cf = CommonFunctions.new()
       newCmd = cf.substituteVariables(@params, @projectVariables)
       if newCmd.is_a?(Array)
-        #puts "Got an Array of commands to run"
         newCmd.each do | cmd |
-          puts cmd
-          #cf.processRun(cmd)
+          puts "Installing... #{cmd.colorize(:green)}"
+          cf.processRun("#{@sysInstaller} #{cmd} -y")
         end
       else
-        puts newCmd.to_s
-        #cf.processRun(newCmd.to_s)
+        puts "Installing... #{@params.colorize(:green)}"
+        cf.processRun("#{@sysInstaller} #{@params} -y")
       end
 
-
-
-
-      # Change to use common ProcessFunction
-      #puts "Installing... #{@params.colorize(:green)}"
-      #puts @sysInstaller
-      #cf = CommonFunctions.new()
-      #cf.processRun("#{@sysInstaller} #{@params} -y")
-      #Process.run(@sysInstaller, args=@params, shell: true)
     end
 
     private def getLinuxDistro()
@@ -49,7 +37,7 @@ module Idat
       Process.run("grep '^ID_LIKE' /etc/os-release", shell: true, output: io)
       linuxDistro = io.to_s.lchop("ID_LIKE=").chomp
       
-      puts linuxDistro
+      #puts linuxDistro
 
       case linuxDistro
       when "debian"

@@ -9,7 +9,6 @@ module Idat
       @projectVariables = Hash(String, TOML::Type).new
       @runCmd = runCmd.as(String)
       @projectVariables = projectVariables
-      puts "I enter run handler"
     end
 
     def execProcess
