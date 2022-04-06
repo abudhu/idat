@@ -1,0 +1,40 @@
+# Setup
+
+[projectInfo]
+name = "Test Run Command"
+author = "Amit Budhu"
+description = "Testing Run Command"
+
+[projectSettings]
+# Maybe we can just add
+#packageManager = "apt"
+system = ["Linux","Mac"]
+elevatePermission = true
+
+[projectVariables]
+simpleSub = "Amit"
+sub2 = "Budhu"
+installList = ["ruby", "crystal"]
+
+
+[listItemsAgain]
+run = "ls"
+
+[simple]
+run = "echo ${simpleSub} ${sub2}"
+
+[echoNames]
+run = "echo ${installList}"
+
+[breaksProbably]
+run = "echo ${installList} ${sub2}"
+
+#[test]
+#run = "sudo apt install ${installList} -y"
+
+#[echoFail]
+#run = "echo )"
+
+
+#[installItem]
+#install = "${installList}"
