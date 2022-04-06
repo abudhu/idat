@@ -26,8 +26,11 @@ run = "echo ${simpleSub} ${sub2}"
 [echoNames]
 run = "echo ${installList}"
 
-[breaksProbably]
-run = "echo ${installList} ${sub2}"
+#[breaksProbably]
+#run = "echo ${installList} ${sub2}"
+
+#[breaksProbably2]
+#run = "echo ${installList} ${installList}"
 
 #[test]
 #run = "sudo apt install ${installList} -y"

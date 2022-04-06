@@ -23,9 +23,6 @@ module Idat
     end
 
     def substituteVariables(action, projectVariables)
-
-
-
       # If you scan = and you encounter an ${} token
       # first check if the ${} = an Array
 
@@ -40,6 +37,7 @@ module Idat
             scrubbedItem = item.to_s.gsub("{", "").gsub("}","").gsub("$","")
           
             if projectVariables["projectVariables"].as(Hash)[(scrubbedItem)].to_s.starts_with?("[") && projectVariables["projectVariables"].as(Hash)[(scrubbedItem)].to_s.ends_with?("]") 
+              #puts "The Array Variable is at #{position}"
               # Its an array lets run it differently
               #puts "Its an Array Variable"
 
@@ -49,7 +47,8 @@ module Idat
               
               itemArray.each do | subItem |
                   
-                  myReturnValue = multiSub(action, subItem)
+                  myReturnValue = multiSub(explodeAction, subItem, position)
+                  #myReturnValue = multiSub(action, subItem)
                   arrayOfItemsToRun.push(myReturnValue)
               end
 
@@ -62,23 +61,30 @@ module Idat
             action = explodeAction.join(" ")
           end
         end  
+        
         return action.as(String)
+      else
+        return action
       end    
 
       
     end
 
-  
-    def multiSub(action, item)
-      action = action.split
-      action.each_with_index do | element, position |
-        isElementVar = element.scan(/\${(.*)}/)
-        if !isElementVar.empty?
-          action[position] = item.to_s
-        end
-      end
-      action = action.join(" ")      
+    def multiSub(action, item, position)
+      action[position] = item.to_s
+      action = action.join(" ")
     end
+
+    #def multiSub(action, item)
+    #  action = action.split
+    #  action.each_with_index do | element, position |
+    #    isElementVar = element.scan(/\${(.*)}/)
+    #    if !isElementVar.empty?
+    #      action[position] = item.to_s
+    #    end
+    #  end
+    #  action = action.join(" ")      
+    #end
   end
 end
 
