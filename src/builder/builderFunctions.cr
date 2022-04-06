@@ -5,10 +5,14 @@ module Idat
 
     @@projectInformation = Hash(String, TOML::Type).new
     @@projectSteps = Hash(String, TOML::Type).new
+    @projectVariables = Hash(String, TOML::Type).new
 
     def initialize(toml_file)
       @toml_file = TOML.parse(File.read(toml_file))
       @@projectInformation = @toml_file.select("projectInfo","projectSettings","projectVariables")
+      
+      @projectVariables = @toml_file.select("projectVariables")
+      
       @@projectSteps = @toml_file.reject("projectInfo","projectSettings","projectVariables")
 
     end
@@ -59,7 +63,7 @@ module Idat
           end
         end
       end
-      puts @@projectSteps
+      #puts @@projectSteps
 
     end
 
@@ -76,7 +80,8 @@ module Idat
     end
 
     private def handle_run(params)
-      runFunc = RunFunctions.new(params)
+      runFunc = RunFunctions.new(params, @projectVariables)
+      runFunc.execProcess
     end 
     
     private def handle_install(params)

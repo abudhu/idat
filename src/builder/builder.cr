@@ -26,7 +26,7 @@ module Idat
         vf.validateSystem
       end
 
-      bf.substituteVariables
+      #bf.substituteVariables
       bf.executeSolution
 
     end
