@@ -1,28 +1,15 @@
-require "toml"
-require "./common.cr"
-
-module Idat
-  class RunFunctions
-    def initialize(runCmd, projectVariables)
-      # Needs to define it as a string
-      # Feature 2: Then needs to see if there are any [] for an array to do mutlirun
-      @projectVariables = Hash(String, TOML::Type).new
-      @runCmd = runCmd.as(String)
-      @projectVariables = projectVariables
-    end
-
-    def execProcess
-
-      cf = CommonFunctions.new()
-      newCmd = cf.substituteVariables(@runCmd, @projectVariables)
-      if newCmd.is_a?(Array)
-        #puts "Got an Array of commands to run"
-        newCmd.each do | cmd |
-          cf.processRun(cmd)
-        end
-      else
-        cf.processRun(newCmd.to_s)
-      end
-    end
+class RunHandler
+  def initialize(argument, file)
+    @runCmd = argument.as(String)
+    @cf = Common.new(file)
   end
+
+  def execProcess
+    puts @runCmd
+    @cf.idatLog("Running #{@runCmd}")
+    cmdExecution = @cf.processRun(@runCmd)
+    puts cmdExecution
+    @cf.idatLog(cmdExecution)
+  end
+
 end

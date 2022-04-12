@@ -1,19 +1,35 @@
 
-SUB_ARRAY = [] of String
+# module Foo
+#   def file
+#     "This is A File"
+#   end
+# end
 
-def collapse_hash(sub_hash)
-    sub_hash.each do | k, v |
-      SUB_ARRAY.push(k)
-      unless v.is_a?(Hash)
-        #puts "No Sub Hash, value is: #{v}"
-        SUB_ARRAY.push(v.to_s)
-        #puts SUB_ARRAY
-      else
-        collapse_hash(v)
-      end
-    end
+# class Amit
+#   extend Foo
+#   def go
+#     puts Amit.file
+#   end
+# end
+
+# af = Amit.new()
+# af.go
+
+#SUB_ARRAY = [] of String
+
+#def collapse_hash(sub_hash)
+#    sub_hash.each do | k, v |
+#      SUB_ARRAY.push(k)
+#      unless v.is_a?(Hash)
+#        #puts "No Sub Hash, value is: #{v}"
+#        SUB_ARRAY.push(v.to_s)
+##        #puts SUB_ARRAY
+ #     else
+#        collapse_hash(v)
+#      end
+#    end
     #puts "Final Sub_Array is: #{SUB_ARRAY}"
-  end
+#  end
   
 
 #toml.each do | k,v | 
@@ -57,40 +73,40 @@ def collapse_hash(sub_hash)
   #end
 
     
-  def getSystem()
-    {% if flag?(:linux) %}
-      os = "Linux"
-    {% elsif flag?(:darwin) %}
-      os = "Mac"
-    {% elsif flag?(:win32) %}
-      os = "Windows"
-    {% else %}
-      os = "Unsupported"
-    {% end %}
-  end
+  # def getSystem()
+  #   {% if flag?(:linux) %}
+  #     os = "Linux"
+  #   {% elsif flag?(:darwin) %}
+  #     os = "Mac"
+  #   {% elsif flag?(:win32) %}
+  #     os = "Windows"
+  #   {% else %}
+  #     os = "Unsupported"
+  #   {% end %}
+  # end
   
-  def validateSystem(*, tomlSystem)
-    systemOS = getSystem
-    if tomlSystem.includes?(systemOS)
-     puts "Validating System...#{"Success".colorize(:green)}"
-    else
-      puts "Validating System...#{"Fail".colorize(:red)}"
-      exit
-    end
-  end
+  # def validateSystem(*, tomlSystem)
+  #   systemOS = getSystem
+  #   if tomlSystem.includes?(systemOS)
+  #    puts "Validating System...#{"Success".colorize(:green)}"
+  #   else
+  #     puts "Validating System...#{"Fail".colorize(:red)}"
+  #     exit
+  #   end
+  # end
 
 
-  def handle_run(params)
-    puts "Running... #{params.colorize(:cyan)}"
-  end 
+  # def handle_run(params)
+  #   puts "Running... #{params.colorize(:cyan)}"
+  # end 
   
-  def handle_install(params)
-    puts "Installing... #{params.colorize(:green)}"
-  end 
+  # def handle_install(params)
+  #   puts "Installing... #{params.colorize(:green)}"
+  # end 
   
-  def handle_validate(params)
-    puts "Validating... #{params.colorize(:magenta)}"
-  end 
+  # def handle_validate(params)
+  #   puts "Validating... #{params.colorize(:magenta)}"
+  # end 
 
 
 #require "option_parser"

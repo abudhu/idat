@@ -18,36 +18,36 @@ installList = ["ruby", "crystal"]
 install2 = "crystal"
 
 
-#[listItemsAgain]
-#run = "ls"
+[listItemsAgain]
+run = "ls"
 
-#[simple]
-#run = "echo ${simpleSub} ${sub2}"
+[simple]
+run = "echo ${simpleSub} ${sub2}"
 
-#[echoNames]
-#run = "echo ${installList}"
+[echoNames]
+run = "echo ${installList}"
 
-#[breaksProbably]
-#run = "echo ${installList} ${sub2}"
+[breaksProbably]
+run = "echo ${installList} ${sub2}"
 
-#[breaksProbably2]
-#run = "echo ${installList} ${installList}"
+[breaksProbably2]
+run = "echo ${installList} ${installList}"
 
 #[test]
 #run = "sudo apt install ${installList} -y"
 
-#[echoFail]
-#run = "echo )"
+[echoFail]
+run = "echo )"
 
 
-[installArrayList]
-install = ["ruby","crystal"]
+#[installArrayList]
+#install = ["ruby","crystal"]
 
-[installArraySubList]
-install = "${installList}"
+#[installArraySubList]
+#install = "${installList}"
 
-[installDirectSingle]
-install = "ruby"
+#[installDirectSingle]
+#install = "ruby"
 
-[installSubSingle]
-install = "${install2}"
+#[installSubSingle]
+#install = "${install2}"
