@@ -17,10 +17,6 @@ sub2 = "Budhu"
 installList = ["ruby", "crystal"]
 install2 = "crystal"
 
-[validateGemHome]
-run = "gem env home"
-validate = "/gem/home"
-
 [listItemsAgain]
 run = "ls"
 
@@ -29,6 +25,10 @@ run = "echo ${simpleSub} ${sub2}"
 
 [echoNames]
 run = "echo ${installList}"
+
+[validateGemHome]
+run = "gem env home"
+validate = "/gem/home"
 
 #[test]
 #run = "sudo apt install ${installList} -y"
