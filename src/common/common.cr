@@ -42,7 +42,7 @@ class Common
     
     if procError.to_s.empty?
       idatLog(io)
-      return io.to_s.colorize(:blue)
+      return io.to_s.colorize(:white)
     else
       idatLog(procError)
       return procError.to_s.colorize(:red)

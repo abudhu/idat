@@ -23,12 +23,14 @@ run = "ls"
 [simple]
 run = "echo ${simpleSub} ${sub2}"
 
-[echoNames]
-run = "echo ${installList}"
-
 [validateGemHome]
 run = "gem env home"
 validate = "/gem/home"
+
+[echoNames]
+run = "echo ${installList}"
+
+
 
 #[test]
 #run = "sudo apt install ${installList} -y"
