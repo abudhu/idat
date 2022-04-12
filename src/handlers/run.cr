@@ -9,7 +9,6 @@ class RunHandler
     @cf.idatLog("Running #{@runCmd}")
     cmdExecution = @cf.processRun(@runCmd)
     puts cmdExecution
-    @cf.idatLog(cmdExecution)
   end
 
 end

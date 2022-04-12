@@ -41,8 +41,10 @@ class Common
     runCmd = Process.run(cmd, shell: true, output: io, error: procError)       
     
     if procError.to_s.empty?
+      idatLog(io)
       return io.to_s.colorize(:blue)
     else
+      idatLog(procError)
       return procError.to_s.colorize(:red)
       Process.exit
     end
