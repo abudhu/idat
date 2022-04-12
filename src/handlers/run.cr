@@ -9,15 +9,15 @@ class RunHandler
     replacementCmd = @cf.substituteVariables(@runCmd)
     if replacementCmd.is_a?(Array)
       replacementCmd.each do | cmd |
-        @cf.idatLog("Running Command: #{cmd}")
         puts "Running... #{cmd.colorize.mode(:bold)}"
+        @cf.idatLog("Running Command: #{cmd}")
         cmdExecution = @cf.processRun(cmd)
         puts cmdExecution
       end
     else
-      cmdExecution = @cf.processRun(replacementCmd)
-      @cf.idatLog("Running Command: #{replacementCmd}")
       puts "Running... #{replacementCmd.colorize.mode(:bold)}"
+      @cf.idatLog("Running Command: #{replacementCmd}")
+      cmdExecution = @cf.processRun(replacementCmd)
       puts cmdExecution
     end
     
