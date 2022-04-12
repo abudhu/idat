@@ -3,18 +3,8 @@ class BuildFunctions
   @file : String
 
   def initialize(file)
-    # if you parse the file
-    # and get the common top info
-    # you can then send it to common
-    # and then you can do common.name / common.file / common.log??
     @file = file
     @cf = Common.new(file)
-    #puts @cf.projectInfo
-    #puts @cf.projectSettings
-    #puts @cf.projectVariables
-    #puts @cf.projectSteps
-    #puts @cf.projectLogFile
-    #@cf.idatLog("And more new info in a different run")
   end
 
   macro dispatch(type, argument)
@@ -49,11 +39,11 @@ class BuildFunctions
   
   private def handle_install(argument)
     instlFunc = InstallHandler.new()
-    #instlFunc.installApp
   end 
   
   private def handle_validate(argument)
-    valdFunc = ValidateHandler.new()
+    validateHandler = ValidateHandler.new(argument, @file)
+    validateHandler.validate
   end 
 
 

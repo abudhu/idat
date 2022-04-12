@@ -52,4 +52,53 @@ class Common
     procError.close
   end
 
+  def substituteVariables(cmd)
+    idatLog("Substituting any variables for: #{cmd}")
+
+    pv = projectVariables()
+
+    areThereVariables = cmd.scan(/\${(.*)}/)
+    if !areThereVariables.empty?
+      explodeCmd = cmd.split
+
+      explodeCmd.each_with_index do | item, position |
+        isItemVariable = item.scan(/\${(.*)}/)
+        if !isItemVariable.empty?
+          # strip the variable of the ${}
+          scrubbedItem = item.to_s.gsub("{", "").gsub("}","").gsub("$","")
+        
+          if pv[(scrubbedItem)].to_s.starts_with?("[") && pv[(scrubbedItem)].to_s.ends_with?("]") 
+            #puts "The Array Variable is at #{position}"
+            # Its an array lets run it differently
+            #puts "Its an Array Variable"
+
+            arrayOfItemsToRun = Array(String).new
+            
+            itemArray = pv[(scrubbedItem)].as(Array)
+            
+            itemArray.each do | subItem |
+              myReturnValue = multiSub(explodeCmd, subItem, position)
+              arrayOfItemsToRun.push(myReturnValue)
+            end
+            return arrayOfItemsToRun
+          end
+
+          replacementValue = pv[(scrubbedItem)].to_s
+          explodeCmd[position] = replacementValue
+          cmd = explodeCmd.join(" ")
+        end
+      end  
+      return cmd.as(String)
+    else
+      return cmd
+    end   
+
+  end
+
+
+  def multiSub(action, item, position)
+    action[position] = item.to_s
+    action = action.join(" ")
+  end
+
 end

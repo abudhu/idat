@@ -5,10 +5,18 @@ class RunHandler
   end
 
   def execProcess
-    puts @runCmd
-    @cf.idatLog("Running #{@runCmd}")
-    cmdExecution = @cf.processRun(@runCmd)
-    puts cmdExecution
+    puts "Running... #{@runCmd.colorize.mode(:bold)}"
+    @cf.idatLog("Running Command: #{@runCmd}")
+    replacementCmd = @cf.substituteVariables(@runCmd)
+    if replacementCmd.is_a?(Array)
+      replacementCmd.each do | cmd |
+        cmdExecution = @cf.processRun(cmd)
+        puts cmdExecution
+      end
+    else
+      cmdExecution = @cf.processRun(replacementCmd)
+      puts cmdExecution
+    end
+    
   end
-
 end
