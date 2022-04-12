@@ -21,14 +21,14 @@ install2 = "crystal"
 run = "gem env home"
 validate = "/gem/home"
 
-#[listItemsAgain]
-#run = "ls"
+[listItemsAgain]
+run = "ls"
 
-#[simple]
-#run = "echo ${simpleSub} ${sub2}"
+[simple]
+run = "echo ${simpleSub} ${sub2}"
 
-#[echoNames]
-#run = "echo ${installList}"
+[echoNames]
+run = "echo ${installList}"
 
 #[test]
 #run = "sudo apt install ${installList} -y"

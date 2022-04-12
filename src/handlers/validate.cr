@@ -17,8 +17,7 @@ class ValidateHandler
     else
       puts "#{@validateString} does NOT match #{content}".colorize(:red)
       @cf.idatLog("#{@validateString} does NOT match #{content}")
-      return false
-      Process.exit
+      Process.exit      
     end
   end
 
