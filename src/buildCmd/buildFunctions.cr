@@ -38,7 +38,8 @@ class BuildFunctions
   end 
   
   private def handle_install(argument)
-    instlFunc = InstallHandler.new()
+    installHandler = InstallHandler.new(argument, @file)
+    installHandler.install
   end 
   
   private def handle_validate(argument)

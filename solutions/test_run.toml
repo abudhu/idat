@@ -28,26 +28,24 @@ run = "echo ${installList}"
 
 [validateGemHome]
 run = "gem env home"
-validate = "/gem/home"
+validate = "/var/lib/gems/2.7.0"
+#validate = "/gem/home"
 
-
-
-
-#[test]
-#run = "sudo apt install ${installList} -y"
+[test]
+run = "sudo apt-get install ${installList} -y"
 
 #[echoFail]
 #run = "echo )"
 
 
-#[installArrayList]
-#install = ["ruby","crystal"]
+[installArrayList]
+install = ["ruby","crystal"]
 
-#[installArraySubList]
-#install = "${installList}"
+[installArraySubList]
+install = "${installList}"
 
-#[installDirectSingle]
-#install = "ruby"
+[installDirectSingle]
+install = "ruby"
 
-#[installSubSingle]
-#install = "${install2}"
+[installSubSingle]
+install = "${install2}"

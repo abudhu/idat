@@ -95,10 +95,21 @@ class Common
 
   end
 
-
-  def multiSub(action, item, position)
+  private def multiSub(action, item, position)
     action[position] = item.to_s
     action = action.join(" ")
+  end
+
+  def getSystem()
+    {% if flag?(:linux) %}
+      os = "Linux"
+    {% elsif flag?(:darwin) %}
+      os = "Mac"
+    {% elsif flag?(:win32) %}
+      os = "Windows"
+    {% else %}
+      os = "Unsupported"
+    {% end %}
   end
 
 end
