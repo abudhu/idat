@@ -15,8 +15,12 @@ elevatePermission = true
 rubyVersion = "3.0.0"
 gemList = ["bundler","ruboocop"]
 
+
 [installRbenv]
 install = "rbenv"
+
+#[sourceBash]
+#run = ". ~/.bashrc"
 
 [initRbenv]
 run = "rbenv init"
