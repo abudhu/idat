@@ -14,14 +14,14 @@ class InstallHandler
     @cf.idatLog("Installing: #{@appList} using #{installer}")
     if @appList.is_a?(Array)
       @appList.as(Array).each do | app |
-        cmdExecution = @cf.processRun("#{installer} #{app}")
+        cmdExecution = @cf.processRun("#{installer} #{app} -y")
         puts cmdExecution
       end
     else
       replacementAppList = @cf.substituteVariables(@appList.as(String))
       if replacementAppList.is_a?(Array)
         replacementAppList.each do | app |
-          cmdExecution = @cf.processRun("#{installer} #{app}")
+          cmdExecution = @cf.processRun("#{installer} #{app} -y")
           puts cmdExecution
         end
       else
