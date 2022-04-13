@@ -48,23 +48,6 @@ class InstallHandler
 
 end
 
-# @cf.idatLog("Running Command: #{@runCmd}")
-# replacementCmd = @cf.substituteVariables(@runCmd)
-# if replacementCmd.is_a?(Array)
-#   replacementCmd.each do | cmd |
-#     puts "Running... #{cmd.colorize.mode(:bold)}"
-#     @cf.idatLog("Running Command: #{cmd}")
-#     cmdExecution = @cf.processRun(cmd)
-#     puts cmdExecution
-#   end
-# else
-#   puts "Running... #{replacementCmd.colorize.mode(:bold)}"
-#   @cf.idatLog("Running Command: #{replacementCmd}")
-#   cmdExecution = @cf.processRun(replacementCmd)
-#   puts cmdExecution
-# end
-
-
 private def getLinuxDistro()
   io = IO::Memory.new
   Process.run("grep '^ID_LIKE' /etc/os-release", shell: true, output: io)
@@ -80,29 +63,3 @@ private def getLinuxDistro()
   end
 
 end
-
-
-# @params : Array(TOML::Type) | String
-#     def installApp()
-#       cf = CommonFunctions.new()
-      
-#       if @params.is_a?(Array)
-#         @params.as(Array).each do | app |
-#           puts "Installing... #{app.colorize(:green)}"
-#           cf.processRun("#{@sysInstaller} #{app} -y")
-#         end
-#       else
-#         newCmd = cf.substituteVariables(@params.as(String), @projectVariables)
-#         if newCmd.is_a?(Array)
-#           newCmd.each do | cmd |
-#             puts "Installing... #{cmd.colorize(:green)}"
-#             cf.processRun("#{@sysInstaller} #{cmd} -y")
-#           end
-#         else
-#           puts "Installing... #{newCmd.colorize(:green)}"
-#           cf.processRun("#{@sysInstaller} #{newCmd} -y")
-#         end
-#       end
-#     end
-#   end
-# end
