@@ -46,7 +46,7 @@ class Common
       return io.to_s.colorize(:white)
     elsif runCmd.exit_code == 1
       idatLog(procError)
-      return procError.to_s.colorize(:white)
+      return "WARNING: #{procError.to_s}".colorize(:yellow)
     else
       idatLog(procError)
       raise procError.to_s
