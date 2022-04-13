@@ -18,10 +18,4 @@ installList = ["ruby", "crystal"]
 install2 = "crystal"
 
 [simple]
-run = "rbenv init"
-
-[ec]
-run = "echo )"
-
-[ls]
-run = "ls /home"
+run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"

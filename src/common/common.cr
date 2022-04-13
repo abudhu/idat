@@ -40,17 +40,17 @@ class Common
     procError = IO::Memory.new
 
     runCmd = Process.run(cmd, shell: true, output: io, error: procError)       
-
     if runCmd.exit_code == 0
       idatLog(io)
       return io.to_s.colorize(:white)
     elsif runCmd.exit_code == 1
       idatLog(procError)
-      return "WARNING: #{procError.to_s}".colorize(:yellow)
+      return procError.to_s.colorize(:yellow)
     else
+      #TODO: Make this error more user friendly, most likely yuo
+      # will need to wrap it in begin rescue
       idatLog(procError)
-      raise procError.to_s
-      #return procError.to_s.colorize(:red)    
+      raise procError.to_s 
     end
     io.close
     procError.close
@@ -65,13 +65,16 @@ class Common
     areThereVariables = cmd.scan(/\${(.*)}/)
     if !areThereVariables.empty?
       explodeCmd = cmd.split
-
       explodeCmd.each_with_index do | item, position |
         isItemVariable = item.scan(/\${(.*)}/)
         if !isItemVariable.empty?
           # strip the variable of the ${}
           scrubbedItem = item.to_s.gsub("{", "").gsub("}","").gsub("$","")
-        
+
+          #puts scrubbedItem
+          #puts pv
+          #puts pv[(scrubbedItem)].to_s
+          #puts "-----------------"
           if pv[(scrubbedItem)].to_s.starts_with?("[") && pv[(scrubbedItem)].to_s.ends_with?("]") 
             #puts "The Array Variable is at #{position}"
             # Its an array lets run it differently
@@ -87,7 +90,6 @@ class Common
             end
             return arrayOfItemsToRun
           end
-
           replacementValue = pv[(scrubbedItem)].to_s
           explodeCmd[position] = replacementValue
           cmd = explodeCmd.join(" ")

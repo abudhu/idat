@@ -10,13 +10,17 @@ class ValidateHandler
     content = (content.last(2)).first
     @cf.idatLog("Validating: #{@validateString}")
 
-    if @validateString == content
-      puts "#{content} matches #{@validateString}\n".colorize(:green)
-      @cf.idatLog("#{content} matches #{@validateString}")
+    replacementValidate = @cf.substituteVariables(@validateString)
+
+    #puts replacementValidate
+
+    if replacementValidate == content
+      puts "#{content} matches #{replacementValidate}\n".colorize(:green)
+      @cf.idatLog("#{content} matches #{replacementValidate}")
       return true
     else
-      puts "#{content} does NOT match #{@validateString}\n".colorize(:red)
-      @cf.idatLog("#{content} does NOT match #{@validateString}")
+      puts "#{content} does NOT match #{replacementValidate}\n".colorize(:red)
+      @cf.idatLog("#{content} does NOT match #{replacementValidate}")
       Process.exit      
     end
   end
