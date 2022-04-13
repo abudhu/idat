@@ -25,7 +25,7 @@ class InstallHandler
           puts cmdExecution
         end
       else
-        cmdExecution = @cf.processRun("#{installer} #{replacementAppList}")
+        cmdExecution = @cf.processRun("#{installer} #{replacementAppList} -y")
         puts cmdExecution
       end
     end

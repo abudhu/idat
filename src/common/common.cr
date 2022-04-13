@@ -35,6 +35,7 @@ class Common
   end
 
   def processRun(cmd)
+    puts cmd
     io = IO::Memory.new
     procError = IO::Memory.new
 
@@ -45,8 +46,8 @@ class Common
       return io.to_s.colorize(:white)
     else
       idatLog(procError)
-      return procError.to_s.colorize(:red)
-      Process.exit
+      raise "#{procError}"
+      #return procError.to_s.colorize(:red)
     end
     io.close
     procError.close
