@@ -46,7 +46,8 @@ class Common
       return io.to_s.colorize(:white)
     else
       idatLog(procError)
-      raise "#{procError}"
+      puts procError.to_s.colorize(:red)
+      #raise "#{procError}"
       #return procError.to_s.colorize(:red)
     end
     io.close
