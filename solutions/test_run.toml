@@ -18,7 +18,10 @@ installList = ["ruby", "crystal"]
 install2 = "crystal"
 
 [simple]
-run = "rbenv"
+run = "rbenv init"
 
-[next]
-run = "echo AMit"
+[ec]
+run = "echo )"
+
+[ls]
+run = "ls /home"
