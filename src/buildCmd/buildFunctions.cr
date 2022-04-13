@@ -47,6 +47,11 @@ class BuildFunctions
     validateHandler.validate
   end 
 
+  private def handle_append(argument)
+    appendHandler = AppendHandler.new(argument, @file)
+    appendHandler.append
+  end 
+
 
 
 end

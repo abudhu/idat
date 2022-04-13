@@ -46,10 +46,10 @@ class Common
     else
       idatLog(procError)
       return procError.to_s.colorize(:red)
-      Process.exit
     end
     io.close
     procError.close
+    exit
   end
 
   def substituteVariables(cmd)

@@ -17,35 +17,8 @@ sub2 = "Budhu"
 installList = ["ruby", "crystal"]
 install2 = "crystal"
 
-[listItemsAgain]
-run = "ls"
-
 [simple]
-run = "echo ${simpleSub} ${sub2}"
+run = "rbenv"
 
-[echoNames]
-run = "echo ${installList}"
-
-[validateGemHome]
-run = "gem env home"
-validate = "/var/lib/gems/2.7.0"
-#validate = "/gem/home"
-
-[test]
-run = "sudo apt-get install ${installList} -y"
-
-#[echoFail]
-#run = "echo )"
-
-
-[installArrayList]
-install = ["ruby","crystal"]
-
-[installArraySubList]
-install = "${installList}"
-
-[installDirectSingle]
-install = "ruby"
-
-[installSubSingle]
-install = "${install2}"
+[next]
+run = "echo AMit"
