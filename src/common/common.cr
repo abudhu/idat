@@ -42,10 +42,14 @@ class Common
     runCmd = Process.run(cmd, shell: true, output: io, error: procError)       
     if runCmd.exit_code == 0
       idatLog(io)
-      return io.to_s.colorize(:white)
+      # Make this so if they flag in settings that they want output, then display it
+      returnValue = "Successfully ran...#{cmd}".colorize(:green)
+      return returnValue
+      #return io.to_s.colorize(:white)
     elsif runCmd.exit_code == 1
       idatLog(procError)
-      return procError.to_s.colorize(:yellow)
+      returnValue = "WARNING... #{procError.to_s}".colorize(:yellow)
+      return returnValue
     else
       #TODO: Make this error more user friendly, most likely yuo
       # will need to wrap it in begin rescue
