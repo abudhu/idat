@@ -1,63 +1,65 @@
-require "toml"
-require "./common.cr"
-
-module Idat
-  class InstallFunctions
-    @params : Array(TOML::Type) | String
-    def initialize(params, projectVariables)
-      @projectVariables = Hash(String, TOML::Type).new
-      # This needs to figure out if you use Apt, Powershell, Choco, 
-      # Then needs to figure out if you gave it an array
-      # Or if its a single app
-      # Or if the single link got subsituted and contains and array
-      
-      if params.is_a?(Array)
-        @params = params.as(Array)
-      else
-        @params = params.as(String)
-      end
-      @projectVariables = projectVariables
-      @sysInstaller = getLinuxDistro()
+class InstallHandler
+  @appList : Array(TOML::Type) | String
+  def initialize(argument, file)
+    if argument.is_a?(Array)
+      @appList = argument.as(Array)
+    else
+      @appList = argument.as(String)
     end
-
-    def installApp()
-      cf = CommonFunctions.new()
-      
-      if @params.is_a?(Array)
-        @params.as(Array).each do | app |
-          puts "Installing... #{app.colorize(:green)}"
-          cf.processRun("#{@sysInstaller} #{app} -y")
-        end
-      else
-        newCmd = cf.substituteVariables(@params.as(String), @projectVariables)
-        if newCmd.is_a?(Array)
-          newCmd.each do | cmd |
-            puts "Installing... #{cmd.colorize(:green)}"
-            cf.processRun("#{@sysInstaller} #{cmd} -y")
-          end
-        else
-          puts "Installing... #{newCmd.colorize(:green)}"
-          cf.processRun("#{@sysInstaller} #{newCmd} -y")
-        end
-      end
-      
-
-    end
-
-    private def getLinuxDistro()
-      io = IO::Memory.new
-      Process.run("grep '^ID_LIKE' /etc/os-release", shell: true, output: io)
-      linuxDistro = io.to_s.lchop("ID_LIKE=").chomp
-      
-      #puts linuxDistro
-
-      case linuxDistro
-      when "debian"
-        @sysInstaller = "sudo apt-get install"
-      else
-        @sysInstaller = "unknown"
-      end
-    end
-
+    @cf = Common.new(file)
   end
+
+  def install
+    installer = getInstallerType 
+    @cf.idatLog("Installing: #{@appList} using #{installer}")
+    if @appList.is_a?(Array)
+      @appList.as(Array).each do | app |
+        cmdExecution = @cf.processRun("#{installer} #{app} -y")
+        puts cmdExecution
+      end
+    else
+      replacementAppList = @cf.substituteVariables(@appList.as(String))
+      if replacementAppList.is_a?(Array)
+        replacementAppList.each do | app |
+          cmdExecution = @cf.processRun("#{installer} #{app} -y")
+          puts cmdExecution
+        end
+      else
+        cmdExecution = @cf.processRun("#{installer} #{replacementAppList} -y")
+        puts cmdExecution
+      end
+    end
+    
+  end
+
+  def getInstallerType
+
+    systemOS = @cf.getSystem
+
+    case systemOS 
+    when "Linux"
+      getInstaller = getLinuxDistro
+    else
+      puts "Not Ready Yet"
+    end
+  
+  end
+
+
+end
+
+private def getLinuxDistro()
+  io = IO::Memory.new
+  Process.run("grep '^ID_LIKE' /etc/os-release", shell: true, output: io)
+  linuxDistro = io.to_s.lchop("ID_LIKE=").chomp
+  
+  #puts linuxDistro
+
+  case linuxDistro
+  when "debian"
+    installCmd = "sudo apt-get install"
+  else
+    installCmd = "unknown"
+  end
+
 end

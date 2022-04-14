@@ -13,13 +13,20 @@ elevatePermission = true
 
 [projectVariables]
 rubyVersion = "3.0.0"
-gemList = ["bundler","ruboocop"]
+gemList = ["bundler","rubocop"]
+
 
 [installRbenv]
 install = "rbenv"
 
 [initRbenv]
 run = "rbenv init"
+
+[appendBashrc]
+append = ["eval \"$(rbenv init -)\"", "/home/amit/.bashrc"]
+
+#[sourceBash]
+#run = "/usr/bin/env bash"
 
 [createPluginsDirectory]
 run = "mkdir -p \"$(rbenv root)\"/plugins"
@@ -28,8 +35,8 @@ run = "mkdir -p \"$(rbenv root)\"/plugins"
 run = "git clone https://github.com/rbenv/ruby-build.git \"$(rbenv root)\"/plugins/ruby-build"
 
 [runRbenvDoctor]
-run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"
-validate = "ok"
+run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash -i"
+validate = "Auditing installed plugins: OK"
 
 [installRubyVersion]
 run = "rbenv install ${rubyVersion}"
@@ -38,11 +45,12 @@ run = "rbenv install ${rubyVersion}"
 run = "rbenv global ${rubyVersion}"
 
 [reHash]
-run = "rbenv hash"
+run = "rbenv rehash"
 
 [validateGemHome]
-run = "gem env home"
-validate = "/gem/home"
+run = "bash -lic \"gem env home\""
+validate = "/home/amit/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0"
 
 [installGems]
-run = "gem install ${gemList}"
+run = "bash -c 'gem install ${gemList} ; exec /bin/bash'"
+#run = "bash -lic \"gem install ${gemList} \""

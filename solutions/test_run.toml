@@ -17,37 +17,5 @@ sub2 = "Budhu"
 installList = ["ruby", "crystal"]
 install2 = "crystal"
 
-
-#[listItemsAgain]
-#run = "ls"
-
-#[simple]
-#run = "echo ${simpleSub} ${sub2}"
-
-#[echoNames]
-#run = "echo ${installList}"
-
-#[breaksProbably]
-#run = "echo ${installList} ${sub2}"
-
-#[breaksProbably2]
-#run = "echo ${installList} ${installList}"
-
-#[test]
-#run = "sudo apt install ${installList} -y"
-
-#[echoFail]
-#run = "echo )"
-
-
-[installArrayList]
-install = ["ruby","crystal"]
-
-[installArraySubList]
-install = "${installList}"
-
-[installDirectSingle]
-install = "ruby"
-
-[installSubSingle]
-install = "${install2}"
+[simple]
+run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"
