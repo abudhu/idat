@@ -12,10 +12,7 @@ system = ["Linux","Mac"]
 elevatePermission = true
 
 [projectVariables]
-simpleSub = "Amit"
-sub2 = "Budhu"
-installList = ["ruby", "crystal"]
-install2 = "crystal"
+rubyVersion = "3.0.0"
 
 [simple]
-run = "curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash"
+bash = "gem env home"
