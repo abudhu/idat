@@ -1,0 +1,10 @@
+version: 2.0
+shards:
+  admiral:
+    git: https://github.com/jwaldrip/admiral.cr.git
+    version: 1.12.1+git.commit.211937b64b753b86ccbe86a72122be30e294e31a
+
+  toml:
+    git: https://github.com/crystal-community/toml.cr.git
+    version: 0.7.0+git.commit.98512f65a24f7846e6279cf48bbc0e72cd69c5f8
+

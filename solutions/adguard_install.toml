@@ -1,0 +1,17 @@
+run = "mkdir Downloads"
+run = "sudo wget https://static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz"
+run = "tar -xzvf AdGuardHome_linux_amd64.tar.gz"
+run  = "sudo AdGuardHome/./AdGuardHome -s install"
+run = "sudo systemctl status AdGuardHome.service"
+run  = "sudo snap install core && sudo snap refresh core"
+run = "sudo snap install --classic certbot"
+run  = "sudo ln -s /snap/bin/certbot /usr/bin/certbot"
+run = "sudo snap set certbot trust-plugin-with-root=ok"
+run = "sudo snap install certbot-dns-digitalocean"
+run = "mkdir Documents"
+run = "wget https://ididathing.io/do.ini"
+run = "sudo certbot certonly --dns-digitalocean --dns-digitalocean-credentials ~/Documents/do.ini --dns-digitalocean-propagation-seconds 60 -d dns1.amitbudhu.com"
+
+
+adguard_admin
+31zhfNo$wx6lKEvk
