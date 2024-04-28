@@ -52,7 +52,7 @@ class BuildFunctions
     appendHandler.append
   end 
 
-  private def bash_append(argument)
+  private def handle_bash(argument)
     bashHandler = BashHandler.new(argument, @file)
     bashHandler.execProcess
   end 
