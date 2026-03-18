@@ -1,6 +1,21 @@
 require "toml"
 
 class Common
+  # Shell metacharacters that should never appear in variable values.
+  # These could allow injection when values are substituted into shell commands.
+  DANGEROUS_SHELL_PATTERNS = [
+    /;/,             # command chaining
+    /\|/,            # pipe
+    /&&/,            # logical AND chaining
+    /\|\|/,          # logical OR chaining
+    /\$\(/,          # command substitution
+    /`/,             # backtick command substitution
+    />/,             # output redirection
+    /</,             # input redirection
+    /\n/,            # newline injection
+    /\r/,            # carriage return injection
+  ]
+
   def initialize(filePath)
     tomlString = filePath.as(String)
     tomlFile = File.read(tomlString)
@@ -75,26 +90,21 @@ class Common
           # strip the variable of the ${}
           scrubbedItem = item.to_s.gsub("{", "").gsub("}","").gsub("$","")
 
-          #puts scrubbedItem
-          #puts pv
-          #puts pv[(scrubbedItem)].to_s
-          #puts "-----------------"
           if pv[(scrubbedItem)].to_s.starts_with?("[") && pv[(scrubbedItem)].to_s.ends_with?("]") 
-            #puts "The Array Variable is at #{position}"
-            # Its an array lets run it differently
-            #puts "Its an Array Variable"
-
             arrayOfItemsToRun = Array(String).new
             
             itemArray = pv[(scrubbedItem)].as(Array)
-            
+
             itemArray.each do | subItem |
+              validate_variable_value(scrubbedItem, subItem.to_s)
               myReturnValue = multiSub(explodeCmd, subItem, position)
               arrayOfItemsToRun.push(myReturnValue)
             end
             return arrayOfItemsToRun
           end
+
           replacementValue = pv[(scrubbedItem)].to_s
+          validate_variable_value(scrubbedItem, replacementValue)
           explodeCmd[position] = replacementValue
           cmd = explodeCmd.join(" ")
         end
@@ -104,6 +114,16 @@ class Common
       return cmd
     end   
 
+  end
+
+  private def validate_variable_value(variable_name : String, value : String)
+    DANGEROUS_SHELL_PATTERNS.each do |pattern|
+      if value.matches?(pattern)
+        error_message = "Unsafe variable value detected — variable '#{variable_name}' contains dangerous shell characters: #{value.inspect}"
+        idatLog("SECURITY ERROR: #{error_message}")
+        raise error_message
+      end
+    end
   end
 
   private def multiSub(action, item, position)
