@@ -1,10 +1,14 @@
 class ValidateHandler
-  def initialize(argument, file)
+  def initialize(argument, file, @dry_run = false)
     @validateString = argument.as(String)
     @cf = Common.new(file)
   end
 
   def validate()
+    if @dry_run
+      puts "[dry-run] Would validate: #{@validateString.colorize(:magenta)}"
+      return true
+    end
     puts "Validating... #{@validateString.colorize(:magenta)}"
     content = File.read_lines(@cf.projectLogFile)
     content = (content.last(2)).first

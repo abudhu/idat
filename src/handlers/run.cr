@@ -1,5 +1,5 @@
 class RunHandler
-  def initialize(argument, file)
+  def initialize(argument, file, @dry_run = false)
     @runCmd = argument.as(String)
     @cf = Common.new(file)
   end
@@ -9,16 +9,24 @@ class RunHandler
     replacementCmd = @cf.substituteVariables(@runCmd)
     if replacementCmd.is_a?(Array)
       replacementCmd.each do | cmd |
-        puts "Running... #{cmd.colorize.mode(:bold)}"
-        @cf.idatLog("Running Command: #{cmd}")
-        cmdExecution = @cf.processRun(cmd)
-        puts cmdExecution
+        if @dry_run
+          puts "[dry-run] Would run: #{cmd.colorize.mode(:bold)}"
+        else
+          puts "Running... #{cmd.colorize.mode(:bold)}"
+          @cf.idatLog("Running Command: #{cmd}")
+          cmdExecution = @cf.processRun(cmd)
+          puts cmdExecution
+        end
       end
     else
-      puts "Running... #{replacementCmd.colorize.mode(:bold)}"
-      @cf.idatLog("Running Command: #{replacementCmd}")
-      cmdExecution = @cf.processRun(replacementCmd)
-      puts cmdExecution
+      if @dry_run
+        puts "[dry-run] Would run: #{replacementCmd.colorize.mode(:bold)}"
+      else
+        puts "Running... #{replacementCmd.colorize.mode(:bold)}"
+        @cf.idatLog("Running Command: #{replacementCmd}")
+        cmdExecution = @cf.processRun(replacementCmd)
+        puts cmdExecution
+      end
     end
     
   end

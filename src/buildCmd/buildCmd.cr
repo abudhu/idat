@@ -11,9 +11,15 @@ class Builder < Admiral::Command
     long: ignorevalidation,
     short: iv,
     required: false
+
+  define_flag dryRun : Bool,
+    description: "Print commands without executing them",
+    long: dryrun,
+    short: d,
+    required: false
   
   def run
-    bf = BuildFunctions.new(flags.file)
+    bf = BuildFunctions.new(flags.file, flags.dryRun || false)
     bf.executeSolution
   end
 end

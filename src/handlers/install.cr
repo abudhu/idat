@@ -1,6 +1,6 @@
 class InstallHandler
   @appList : Array(TOML::Type) | String
-  def initialize(argument, file)
+  def initialize(argument, file, @dry_run = false)
     if argument.is_a?(Array)
       @appList = argument.as(Array)
     else
@@ -14,19 +14,31 @@ class InstallHandler
     @cf.idatLog("Installing: #{@appList} using #{installer}")
     if @appList.is_a?(Array)
       @appList.as(Array).each do | app |
-        cmdExecution = @cf.processRun("#{installer} #{app} -y")
-        puts cmdExecution
+        if @dry_run
+          puts "[dry-run] Would install: #{installer} #{app} -y"
+        else
+          cmdExecution = @cf.processRun("#{installer} #{app} -y")
+          puts cmdExecution
+        end
       end
     else
       replacementAppList = @cf.substituteVariables(@appList.as(String))
       if replacementAppList.is_a?(Array)
         replacementAppList.each do | app |
-          cmdExecution = @cf.processRun("#{installer} #{app} -y")
-          puts cmdExecution
+          if @dry_run
+            puts "[dry-run] Would install: #{installer} #{app} -y"
+          else
+            cmdExecution = @cf.processRun("#{installer} #{app} -y")
+            puts cmdExecution
+          end
         end
       else
-        cmdExecution = @cf.processRun("#{installer} #{replacementAppList} -y")
-        puts cmdExecution
+        if @dry_run
+          puts "[dry-run] Would install: #{installer} #{replacementAppList} -y"
+        else
+          cmdExecution = @cf.processRun("#{installer} #{replacementAppList} -y")
+          puts cmdExecution
+        end
       end
     end
     
