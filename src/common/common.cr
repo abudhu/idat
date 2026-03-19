@@ -71,9 +71,6 @@ class Common
       idatLog(procError)
       raise procError.to_s 
     end
-    io.close
-    procError.close
-    exit
   end
 
   def substituteVariables(cmd)

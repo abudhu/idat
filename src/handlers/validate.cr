@@ -23,9 +23,8 @@ class ValidateHandler
       @cf.idatLog("#{content} matches #{replacementValidate}")
       return true
     else
-      puts "#{content} does NOT match #{replacementValidate}\n".colorize(:red)
       @cf.idatLog("#{content} does NOT match #{replacementValidate}")
-      Process.exit      
+      raise "Validation failed: '#{content}' does NOT match '#{replacementValidate}'"
     end
   end
 

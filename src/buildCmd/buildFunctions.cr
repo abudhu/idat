@@ -30,9 +30,21 @@ class BuildFunctions
       puts "Executing Solution: #{@cf.projectInfo["name"].colorize.mode(:bold)}!\n\n"
     end
     
+    completed_steps = [] of String
+
     @cf.projectSteps.each do | step, action |
-      action.as(Hash).each do | handler, argument |
-        dispatch(handler, argument)
+      begin
+        action.as(Hash).each do | handler, argument |
+          dispatch(handler, argument)
+        end
+        completed_steps << step.to_s
+      rescue ex
+        puts "\n#{"ERROR".colorize(:red)}: Step '#{step}' failed"
+        puts "  #{ex.message}"
+        puts "\nCompleted steps before failure:"
+        completed_steps.each { |s| puts "  ✓ #{s}".colorize(:green) }
+        @cf.idatLog("FAILED at step '#{step}': #{ex.message}")
+        Process.exit(1)
       end
     end
 
